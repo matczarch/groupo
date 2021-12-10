@@ -1,0 +1,22 @@
+.logo {
+    //logo with icon
+    &--icon {
+        //hidden on smaller resolutions
+        @include respond(desktop) {
+            display: block;
+        }
+
+        @include respond(mobileLandscape) {
+            display: none;
+        }
+    }
+
+    //logo without icon
+    &--typography {
+        //hidden on bigger resolutions
+        display: none;
+        @include respond(mobileLandscape) {
+            display: block;
+        }
+    }
+}
