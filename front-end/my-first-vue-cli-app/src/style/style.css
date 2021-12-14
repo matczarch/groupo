@@ -408,6 +408,10 @@ body {
           align-items: center;
 }
 
+.inscription .container_footer {
+  background-color: #091f43;
+}
+
 button {
   height: 50px;
   padding: 10px 20px;

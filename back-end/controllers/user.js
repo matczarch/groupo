@@ -6,27 +6,26 @@ const jwt = require("jsonwebtoken");
 const passwordValidator = require("password-validator");
 const maskData = require("maskdata");
 
-/***Setting up the password validation***/
+/***Paramétrage de la validation du mot de passe***/
 var schema = new passwordValidator();
 
-schema //for the password validation
+schema //Pour la validation du mot de passe
     .is()
-    .min(6) //min 6 characters
+    .min(6) //min 6 caractères
     .is()
-    .max(20) //max 20 characters
+    .max(20) //max 20 caractère
     .has()
-    .uppercase() //at least one uppercase letter
+    .uppercase() //Au moins une lettre en majuscule
     .has()
-    .lowercase() //at least one lowercase letter
+    .lowercase() //Au moins une lettre en minuscule
     .has()
-    .digits(1); //at least one digit
+    .digits(1); //Au moins un chiffre
 
-//function to create an account
+
 exports.create_an_account = function (req, res) {
-    //if there's no content sent, error
     if (!req.body) {
         res.status(400).send({
-            message: "You must fill-in the form!",
+            message: "Vous devez remplir le formulaire !",
         });
     } else if (!schema.validate(req.body.password)) {
         res.status(422).send({
@@ -34,11 +33,11 @@ exports.create_an_account = function (req, res) {
                 "Le mot de passe doit faire entre 6 et 20 caractères et contenir 1 majuscule, 1 minuscule et 1 chiffre minimum",
         });
     } else {
-        //hash password
+        //hash du mot de passe
         bcrypt
-            .hash(req.body.password, 10) //password hashing
+            .hash(req.body.password, 10) //hash du mot de passe 
             .then((hash) => {
-                //create a new user with the frontend inputs
+                //
                 if (!req.file) {
                     const user = new User({
                         avatar: `${req.protocol}://${req.get("host")}/images/avatar_default.png`, //if the user hasn't selected an avatar, path to the default avatar
@@ -49,16 +48,17 @@ exports.create_an_account = function (req, res) {
                         isAdmin: 0,
                     });
 
-                    //save post to the db
+                    //
                     User.signup(user, (err, data) => {
                         if (err)
                             res.status(500).send({
-                                message: err.message || "Something went wrong when creating the user !",
+                                message: err.message || "Une erreur s'est produite lors de la création de l'utilisateur !",
                             });
                         else res.send(data);
                     });
                 } else if (req.file) {
                     const user = new User({
+
                         avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
                         firstname: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1),
                         lastname: req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1),
@@ -67,11 +67,11 @@ exports.create_an_account = function (req, res) {
                         isAdmin: 0,
                     });
 
-                    //save post to the db
+                    //
                     User.signup(user, (err, data) => {
                         if (err)
                             res.status(500).send({
-                                message: err.message || "Something went wrong when creating the user !",
+                                message: err.message || "Une erreur s'est produite lors de la création de l'utilisateur !",
                             });
                         else res.send(data);
                     });
@@ -80,30 +80,30 @@ exports.create_an_account = function (req, res) {
     }
 };
 
-//function to conenct to account
+//
 exports.connect_to_account = function (req, res) {
     const email = maskData.maskEmail2(req.body.email);
     const password = req.body.password;
 
-    //if email and password are filled-in
+    //
     if (email && password) {
         User.login(email, password, (err, data) => {
             if (err)
                 res.status(500).send({
-                    message: err.message || "Something went wrong when logging into account !",
+                    message: err.message || "Une erreur s'est produite lors de la connexion au compte !",
                 });
             else res.send(data);
         });
     } else {
-        //if the form isn't filled-in, throw error
-        res.status(500).json({ message: "You must fill-in the form" });
+        //
+        res.status(500).json({ message: "Vous devez remplir le formulaire" });
     }
 };
 
-//this is to get a single user infos
+//
 exports.get_user_infos = function (req, res) {
-    const token = req.headers.authorization.split(" ")[1]; //extracting token from authorization header
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); //decoding token with the key indicated at controllers/user.controller.js:53
+    const token = req.headers.authorization.split(" ")[1]; //extraction du jeton de l'entête d'autorisation 
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); //jeton de décodage avec la clé indiquée au contrôleur/controller.js:53
     const userId = decodedToken.userId; //defining decoded token as user id
 
     User.getOne(userId, (err, data) => {

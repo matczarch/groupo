@@ -14,7 +14,7 @@
                   <label for="nom">Nom</label>
                   <input
                     type="text"
-                    placeholder="ex : Durand"
+                    placeholder="ex : Smith"
                     name="nom"
                     id="nom"
                     required
@@ -26,7 +26,7 @@
                   <label for="prenom">Prénom</label>
                   <input
                     type="text"
-                    placeholder="ex : Marie"
+                    placeholder="ex : John"
                     name="prenom"
                     id="prenom"
                     required
@@ -39,7 +39,7 @@
                 <label for="email">E-mail</label>
                 <input
                   type="text"
-                  placeholder="ex : durandmarie@email.com"
+                  placeholder="ex : johnsmith@email.com"
                   name="email"
                   id="email"
                   required
@@ -123,6 +123,11 @@
           </form>
         </div>
       </div>
+      <footer>
+        <div class="container_footer">
+            <p>Footer Copyright Mattéo RICHARD </p>
+        </div>
+      </footer>
     </body>
   </div>
 </template>
@@ -130,7 +135,7 @@
 <script>
 //import Header from "../components/Header";
 import { DefaultAvatar } from "@/assets/images/avatar_default.png";
-import { formValidation, passwordCueKeyup } from 'vue';
+import { formValidation, passwordCueKeyup } from "vue";
 
 export default {
   name: "signup",
@@ -174,19 +179,19 @@ export default {
 
         //sending data
         fetch("http://localhost:3000/api/user/login", {
-            body: JSON.stringify(formData), 
-            headers: config,
+          body: JSON.stringify(formData),
+          headers: config,
         })
-        .then(responce => responce.json(), console.log("Succes"))
-        .then((data) => {
-            let token = data.token; 
-            if (token == null){
-                alert("Une erreur ces produites, veuillez reesayer")
+          .then((responce) => responce.json(), console.log("Succes"))
+          .then((data) => {
+            let token = data.token;
+            if (token == null) {
+              alert("Une erreur ces produites, veuillez reesayer");
             } else {
-                window.location.href = "http://localhost:8080/login";
+              window.location.href = "http://localhost:8080/login";
             }
-        })
-        .catch (err => console.log("Erreur lors du fetch", err)); 
+          })
+          .catch((err) => console.log("Erreur lors du fetch", err));
       }
     },
     formValidation() {
