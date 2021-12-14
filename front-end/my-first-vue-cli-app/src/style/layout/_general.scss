@@ -36,5 +36,5 @@ main {
     @include respond(mobileLandscape) {
         border-radius: 0;
     }
-    @include shadow;
+    //@include shadow;
 }

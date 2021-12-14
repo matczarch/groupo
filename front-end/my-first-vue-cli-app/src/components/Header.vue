@@ -1,16 +1,10 @@
 <template>
-    <header>
-    <Dropdown />
-    </header>
+  <div class="container_header">
+  </div>
 </template>
 <script>
-import Dropdown from "./Dropdown.vue";
-
 export default {
-    name: 'Header',
-    components: {
-        Dropdown
-    },
-}
+  name: "Header",
+};
 </script>
 <style lang="scss"></style>

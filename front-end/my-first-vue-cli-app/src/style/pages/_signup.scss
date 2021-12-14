@@ -1,10 +1,23 @@
 .inscription {
-
-    header .dropdown {
-        display: none; //the avatar/dropdown menu is useless in this page so we remove it
+    // display: flex;
+    // flex-direction: column;
+    .bloc {
+        display: flex;
     }
-
+    .main {
+        display: flex;
+        justify-content: center;
+    }
+    .signup {
+        background-color: white;
+        display: flex;
+        border-radius: 25px;
+        padding: 20px;
+    }
     form {
+        display: flex;
+        flex-direction: column;
+
         input,
         label {
             display: block; //this makes sure the labels stack on top of eachother and are easy to style
@@ -15,8 +28,9 @@
         }
 
         input {
-            max-width: 100%; //the goal here is to have inputs that take all the space they can while adapting to the screen size
+            //max-width: 100%; //the goal here is to have inputs that take all the space they can while adapting to the screen size
             width: 100%;
+
         }
 
         label {
@@ -34,6 +48,7 @@
         //containers represent both parts of the form (one with the actual form, the other with the exit button)
         .container {
             display: flex; //flexing items
+            align-items: center;
             div {
                 margin: 10px 0; //adding a top margin so that inputs don't crash into eachother
             }
@@ -47,8 +62,10 @@
 
         //this is the container with the button to login
         :nth-child(2) {
-            justify-content: space-between; //aligning signup button to the right
-            align-items: baseline;
+            //margin-left: 20px;
+            //padding-right: 20px;
+            align-items: center;
+            justify-content: center;
             //button is styled at components/button/.formExit
         }
 
@@ -57,6 +74,9 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            :nth-child(1) {
+                margin-right: 20px;
+            }
         }
 
         //this is the line where the password is entered, it has an input and a visibility toggle
@@ -127,7 +147,7 @@
 
                 //this styling matches the button styling at components/button/.button
                 @include card;
-                @include shadow;
+                //@include shadow;
                 height: 50px;
                 margin: 10px 0;
                 padding: 10px 20px;
@@ -138,8 +158,5 @@
                 align-items: center;
             }
         }
-    }
-    .container_footer {
-        background-color: $accent-color;
     }
 }

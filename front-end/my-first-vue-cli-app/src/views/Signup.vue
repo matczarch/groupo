@@ -1,8 +1,7 @@
 <template>
-  <div class="container-sigup">
-    <body class="inscription">
+    <div class="inscription">
       <div class="main">
-        <div class="bloc">
+        <div class="signup">
           <form
             method="POST"
             @submit.prevent="createNewAccount"
@@ -26,7 +25,7 @@
                   <label for="prenom">Prénom</label>
                   <input
                     type="text"
-                    placeholder="ex : John"
+                    placeholder="ex: John"
                     name="prenom"
                     id="prenom"
                     required
@@ -35,7 +34,7 @@
                 </div>
               </section>
 
-              <div>
+              <div class="email">
                 <label for="email">E-mail</label>
                 <input
                   type="text"
@@ -81,7 +80,7 @@
                 <li id="length" class="invalid">6 charactères minimum</li>
               </ul>
 
-              <div class="imgUpload">
+              <!-- <div class="imgUpload">
                 <p class="label">
                   Photo de profil <b>(vous pourrez en changer)</b>
                 </p>
@@ -104,10 +103,10 @@
                       @change="avatarChange"
                     />
                   </label>
-                  <!--This is the default avatar, replaced by user's avatar if there's one-->
+                  This is the default avatar, replaced by user's avatar if there's one
                   <img class="avatar" :src="user.avatarPreview" alt="avatar" />
                 </div>
-              </div>
+              </div> -->
               <button class="formSubmit" id="formSubmit--signup">
                 Inscription
               </button>
@@ -123,22 +122,19 @@
           </form>
         </div>
       </div>
-      <footer>
-        <div class="container_footer">
-            <p>Footer Copyright Mattéo RICHARD </p>
-        </div>
-      </footer>
-    </body>
-  </div>
+      <Footer />
+    </div>
 </template>
 
 <script>
 //import Header from "../components/Header";
 import { DefaultAvatar } from "@/assets/images/avatar_default.png";
+import Footer from "../components/Footer.vue";
 import { formValidation, passwordCueKeyup } from "vue";
 
 export default {
   name: "signup",
+  components: { Footer },
   data() {
     return {
       user: {
@@ -152,14 +148,6 @@ export default {
     };
   },
   methods: {
-    avatarChange(e) {
-      //take file
-      let file = e.target.files[0];
-      //temporary URL for the avatar preview
-      this.avatarPreview = URL.createObjectURL(file);
-      //defining the state.avatar as the file
-      this.user.avatar = file;
-    },
     createNewAccount() {
       if (formValidation() == true) {
         //putting state.user infos in a formData
@@ -304,14 +292,6 @@ export default {
           "Le mot de passe doit contenir :";
         return false;
       }
-    },
-    focusBtnUploadAvatar() {
-      document.getElementById("labelUploadAvatar").style.backgroundColor =
-        "#d1d9e6"; //color correspond to $focus-color in sass/abstracts/variables
-    },
-    blurBtnUploadAvatar() {
-      document.getElementById("labelUploadAvatar").style.backgroundColor =
-        "#ecf0f3"; //color correspond to $background-color in sass/abstracts/variables
     },
   },
 };

@@ -2,14 +2,20 @@
 
 //standard button
 button {
-    height: 50px;
+    //height: 50px;
     padding: 10px 20px;
     //removing default border
     border: none;
     //using neumorphic shadow and corners rounding
-    @include shadow;
+    //@include shadow;
+    background-color: $shadow-highlight;
     @include card;
+    transition-duration: 1000ms;
+    &:hover {
+        transform: scale(1.05);
+    }
 }
+
 
 .formSubmit {
     background-color: $primary-color;

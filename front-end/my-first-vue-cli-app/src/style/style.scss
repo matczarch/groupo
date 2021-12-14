@@ -4,7 +4,7 @@
 @import "./utils/variables", "./utils/mixins"; 
 
 // 4-Layout
-@import "./layout/general", "./layout/headers";
+@import "./layout/general", "./layout/headers", "./layout/footer";
 
 // 6-Style de page spécifique
 @import "./pages/login", "./pages/signup"; 
