@@ -13,7 +13,7 @@
                   <label for="nom">Nom</label>
                   <input
                     type="text"
-                    placeholder="ex : Smith"
+                    placeholder="ex: Smith"
                     name="nom"
                     id="nom"
                     required
@@ -63,7 +63,7 @@
 
                   <i
                     id="icon"
-                    class="material-icons"
+                    class="fas fa-eye"
                     @click="seePassword()"
                     @keypress="seePassword()"
                     tabindex="0"
